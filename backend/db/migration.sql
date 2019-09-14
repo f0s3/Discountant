@@ -60,7 +60,7 @@ CREATE TABLE `users_codes` (
   KEY `user_id` (`user_id`),
   KEY `code_id` (`code_id`),
   CONSTRAINT `users_codes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `users_codes_ibfk_2` FOREIGN KEY (`code_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `users_codes_ibfk_2` FOREIGN KEY (`code_id`) REFERENCES `codes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
