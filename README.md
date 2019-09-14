@@ -6,5 +6,5 @@ To apply a dump use `to be written`
 
 To create a migration use `mysqldump --no-data -u root -p discountant > migration.sql`
 
-To apply a migration use `to be written`
+To apply a migration create database `discountant` and use `sudo mysql discountant < migration.sql`
 
