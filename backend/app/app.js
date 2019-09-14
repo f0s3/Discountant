@@ -1,33 +1,73 @@
 const app = require('express')();
 const bodyParser = require('body-parser')
 const port = 3000;
-const { User, Code, UsersCodes } = require('./sequelize');
+const { User, Code, UsersCodes, sequelize } = require('./sequelize');
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+ }));
 
 app.get('/', (req, res) => {
-  UsersCodes.findAll()
-    .then(users => {
-      res.send(users);
-    })
+  const { user_id } = req.headers;
+  
+  sequelize.query(`
+    SELECT codes.* FROM codes
+      LEFT JOIN users_codes AS uc ON uc.code_id = codes.id
+      WHERE uc.user_id = ${ user_id }
+    ;`, {
+      model: Code,
+      mapToModel: true,
+      type: sequelize.QueryTypes.SELECT
+    }).then((result) => {
+      const codes = result.map(({ dataValues }) => dataValues);
+    console.log(17, codes);
+    res.send({ codes })
+  })
 });
 
 app.post('/register', (req, res) => {
-  User.create({
-    name: 'IlyaBielov',
-    password: '123456'
-  }).then(value => res.send(value));
+  const {name, password} = req.body;
+  User.create({name, password})
+  .then(user => res.status(200).send({userId: user.id}))
+  .catch(err => {
+    console.log(err);
+    res.status(500).send();
+  });
 });
 
-app.get('/login', (req, res) => res.send('LOGIN'));
+app.post('/login', (req, res) => {
+  const {name, password} = req.body;
+  User.findOne({where: {name}})
+  .then(user => {
+    if (user.password === password) {
+      res.status(200).send({userId: user.id});
+    } else {
+      res.status(401).send();
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).send();
+  });
+});
+
+app.get('/code/:id', (req, res) => {
+  Code.findByPk(req.params.id)
+    .then(value => {
+      console.log(value.dataValues.id);
+      res.status(200).send({codeId: value.dataValues});
+    }).catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+})
 
 app.post('/code', (req, res) => {
-  const code = req.body;
+  const {name, image} = req.body;
 
-  Code.create({
-    name: code.name,
-    image: code.image
-  }).then(value => {
+  Code.create({name, image})
+  .then(value => {
     res.send({
       id: value.id
     });
