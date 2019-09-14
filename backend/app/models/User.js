@@ -7,7 +7,7 @@ module.exports = (sequelize, type) => {
     },
     name: type.STRING,
     password: type.STRING
-  });
+  }, { timestamps: false });
 
   Users.associate = (models) => {
     Users.belongsToMany(models.codes, {

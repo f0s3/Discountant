@@ -16,6 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
-  });
+  }, { timestamps: false });
   return UsersCodes;
 };

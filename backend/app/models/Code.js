@@ -7,7 +7,7 @@ module.exports = (sequelize, type) => {
     },
     name: type.STRING,
     image: type.STRING
-  });
+  }, { timestamps: false });
 
   Codes.associate = (models) => {
     Codes.belongsToMany(models.codes, {
