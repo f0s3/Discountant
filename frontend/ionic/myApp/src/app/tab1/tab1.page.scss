@@ -2,3 +2,21 @@
   max-height: 35vh;
   overflow: hidden;
 }
+
+ion-header {
+  margin-bottom: 1.5rem;
+}
+
+ion-slide {
+  width: 50px;
+  height: 60px;
+  background: #0ec254;
+  border-left: 10px;
+  border-right: 10px;
+}
+
+
+ion-slides {
+  width: 100px;
+  height: 60px;
+}
