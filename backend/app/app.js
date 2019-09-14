@@ -1,5 +1,6 @@
 const app = require('express')();
 const port = 3000;
+const { User, Code, UsersCodes } = require('./sequelize');
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
