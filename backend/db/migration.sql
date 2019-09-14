@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `users_codes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users_codes` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) DEFAULT NULL,
   `code_id` mediumint(9) DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -10,8 +10,8 @@ module.exports = (sequelize, type) => {
   }, { timestamps: false });
 
   Codes.associate = (models) => {
-    Codes.belongsToMany(models.codes, {
-      through: 'user_codes',
+    Codes.belongsToMany(models.users, {
+      through: 'users_codes',
       as: 'codeUsers',
       foreignKey: 'user_id'
     });
