@@ -7,16 +7,25 @@ ion-header {
   margin-bottom: 1.5rem;
 }
 
-ion-slide {
-  width: 50px;
-  height: 60px;
-  background: #0ec254;
-  border-left: 10px;
-  border-right: 10px;
+ion-slides {
+  //width: 100px;
+  //height: 60px;
+  width: 90vw;
+  height: 60vh;
 }
 
+#slide1 {
+  background: #ffaa00;
+}
 
-ion-slides {
-  width: 100px;
-  height: 60px;
+#slide2 {
+  background: #ffff00;
+}
+
+#slide3 {
+  background: #ff00ff;
+}
+
+#slide4 {
+  background: #0000ff;
 }
