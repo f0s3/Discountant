@@ -73,16 +73,15 @@ app.post('/code', (req, res) => {
 });
 
 app.put('/code/:id', (req, res) => {
-  Code.update(
-    { name: req.body.name },
-    { where: { id: req.params.id } }
-  ).then(value => {
-    Code.findOne({
-      where: { id: req.params.id }
-    }).then(value => {
-      res.send(value);
-    })
-  })
+  const { id: code_id } = req.params;
+  const { target_id }  = req.body;
+  
+  UsersCodes.create({user_id: target_id, code_id})
+    .then(_ => res.sendStatus(200))
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
