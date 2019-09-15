@@ -14,18 +14,12 @@ ion-slides {
   height: 60vh;
 }
 
-#slide1 {
+.slide {
   background: #ffaa00;
 }
 
-#slide2 {
-  background: #ffff00;
-}
-
-#slide3 {
-  background: #ff00ff;
-}
-
-#slide4 {
-  background: #0000ff;
+.flex {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
