@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.post('/register', (req, res) => {
   const {name, password} = req.body;
   User.create({name, password})
-  .then(user => res.status(200).send({userId: user.id}))
+  .then(user => res.status(200).send({user_id: user.id}))
   .catch(err => parseError(err, res));
 });
 
