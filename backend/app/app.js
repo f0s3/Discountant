@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 app.post('/register', (req, res) => {
   const {name, password} = req.body;
   User.create({name, password})
-  .then(user => res.status(200).send({userId: user.id}))
+  .then(user => res.status(200).send({user_id: user.id}))
   .catch(err => parseError(err, res));
 });
 
@@ -57,10 +57,9 @@ app.post('/code', (req, res) => {
 
   Code.create({name, image})
   .then(({ dataValues: { id } }) => {
-    console.log("abc", id);
     UsersCodes.create({user_id, code_id: id})
       .then(_ => {
-        res.send({ id });
+        res.status(200).send({ code_id: id });
       }).catch(err => parseError(err, res));
   }).catch(err => parseError(err, res));
 });
