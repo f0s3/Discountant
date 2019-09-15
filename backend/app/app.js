@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   const { user_id } = req.headers;
   
   sequelize.query(`
-    SELECT codes.* FROM codes
+      SELECT codes.* FROM codes
       LEFT JOIN users_codes AS uc ON uc.code_id = codes.id
       WHERE uc.user_id = ${ user_id }
     ;`, {
@@ -65,12 +65,18 @@ app.get('/code/:id', (req, res) => {
 
 app.post('/code', (req, res) => {
   const {name, image} = req.body;
+  const {user_id} = req.headers;
 
   Code.create({name, image})
-  .then(value => {
-    res.send({
-      id: value.id
-    });
+  .then(({ dataValues: { id } }) => {
+    console.log("abc", id);
+    UsersCodes.create({user_id, code_id: id})
+      .then(_ => {
+        res.send({ id });
+      }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+      })
   }).catch(err => {
     console.log(err);
     res.sendStatus(500);
