@@ -8,6 +8,11 @@ app.use(bodyParser.urlencoded({
   extended: true
  }));
 
+function parseError(err, res) {
+  console.log(err);
+  res.sendStatus(500);
+}
+
 app.get('/', (req, res) => {
   const { user_id } = req.headers;
   
@@ -30,10 +35,7 @@ app.post('/register', (req, res) => {
   const {name, password} = req.body;
   User.create({name, password})
   .then(user => res.status(200).send({userId: user.id}))
-  .catch(err => {
-    console.log(err);
-    res.status(500).send();
-  });
+  .catch(err => parseError(err, res));
 });
 
 app.post('/login', (req, res) => {
@@ -41,15 +43,12 @@ app.post('/login', (req, res) => {
   User.findOne({where: {name}})
   .then(user => {
     if (user && user.password === password) {
-      res.status(200).send({userId: user.id});
+      res.status(200).send({user_id: user.id});
     } else {
       res.status(401).send();
     }
   })
-  .catch(err => {
-    console.log(err);
-    res.status(500).send();
-  });
+  .catch(err => parseError(err, res));
 });
 
 app.post('/code', (req, res) => {
@@ -62,14 +61,8 @@ app.post('/code', (req, res) => {
     UsersCodes.create({user_id, code_id: id})
       .then(_ => {
         res.send({ id });
-      }).catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-      })
-  }).catch(err => {
-    console.log(err);
-    res.sendStatus(500);
-  });
+      }).catch(err => parseError(err, res));
+  }).catch(err => parseError(err, res));
 });
 
 app.put('/code/:id', (req, res) => {
@@ -78,10 +71,23 @@ app.put('/code/:id', (req, res) => {
   
   UsersCodes.create({user_id: target_id, code_id})
     .then(_ => res.sendStatus(200))
-    .catch(err => {
-      console.log(err);
-      res.sendStatus(500);
-    });
+    .catch(err => parseError(err, res));
 });
+
+app.delete('/code/:id', (req, res) => {
+  const { id } = req.params;
+  const { user_id } = req.headers;
+
+  UsersCodes.findOne({where: {user_id, code_id: id}})
+  .then(code => {
+    if (code) {
+      code.destroy();
+      res.sendStatus(200)
+    } else {
+      res.sendStatus(404)
+    }
+  })
+  .catch(err => parseError(err, res));
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
