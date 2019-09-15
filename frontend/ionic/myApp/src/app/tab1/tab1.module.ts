@@ -5,12 +5,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { AddCodeComponent } from '../add-code/add-code.component';
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
+    NgxBarcodeModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
   declarations: [Tab1Page, AddCodeComponent]

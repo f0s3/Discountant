@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { AppServiceService } from '../app-service.service';
 
 @Component({
   selector: 'app-add-code',
@@ -9,10 +10,10 @@ import { BarcodeScannerOptions, BarcodeScanner } from '@ionic-native/barcode-sca
 export class AddCodeComponent implements OnInit {
 
   encodeData: any;
-  scannedData: {};
+  scannedData: { text: any; };
   barcodeScannerOptions: BarcodeScannerOptions;
 
-  constructor(private barcodeScanner: BarcodeScanner) {
+  constructor(private barcodeScanner: BarcodeScanner, private codes: AppServiceService) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true
@@ -23,8 +24,9 @@ export class AddCodeComponent implements OnInit {
 
   scanCode() {
     this.barcodeScanner.scan()
-      .then(barcodeData => {
+      .then((barcodeData: { text: any }) => {
         this.scannedData = barcodeData;
+        this.codes.addCode({ code: barcodeData.text, name: 'newName' });
       })
       .catch(err => {
         console.log('Error', err);

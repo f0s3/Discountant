@@ -11,11 +11,12 @@ import { AppComponent } from './app.component';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { FormsModule } from '@angular/forms';
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, FormsModule, NgxBarcodeModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
