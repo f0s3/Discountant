@@ -1,26 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Page Title</ion-title>
+    <ion-title>Disountant</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false" (click)="myMethod($event)"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-list [hidden]="!isNavOpened" side="start">
-      <ion-item [routerLink]="p.url" *ngFor="let p of items">
-        <ion-icon slot="start" [src]="p.icon"></ion-icon>
-        <ion-label>
-          {{p.title}}
-        </ion-label>
-      </ion-item>
+    <ion-item [routerLink]="p.url" *ngFor="let p of items">
+      <ion-icon slot="start" [src]="p.icon"></ion-icon>
+      <ion-label>
+        {{p.title}}
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-header>
 
 <ion-content>
   <ion-slides>
-    <ion-slide id="slide1"><div>rgeg1e</div></ion-slide>
-    <ion-slide id="slide2"><div>rgeg2e</div></ion-slide>
-    <ion-slide id="slide3"><div>rgeg3e</div></ion-slide>
-    <ion-slide id="slide4"><div>rgeg4e</div></ion-slide>
+    <ion-slide *ngFor="let item of slides">
+      <div class="flex">
+        <p>{{ item.name }}</p>
+        <ngx-barcode [bc-value]="item.code" [bc-display-value]="true"></ngx-barcode>
+      </div>
+    </ion-slide>
   </ion-slides>
 
   <app-add-code></app-add-code>
