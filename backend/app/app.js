@@ -2,7 +2,9 @@ const app = require('express')();
 const bodyParser = require('body-parser')
 const port = 3000;
 const { User, Code, UsersCodes, sequelize } = require('./sequelize');
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
