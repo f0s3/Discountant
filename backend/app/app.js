@@ -40,7 +40,7 @@ app.post('/login', (req, res) => {
   const {name, password} = req.body;
   User.findOne({where: {name}})
   .then(user => {
-    if (user.password === password) {
+    if (user && user.password === password) {
       res.status(200).send({userId: user.id});
     } else {
       res.status(401).send();
