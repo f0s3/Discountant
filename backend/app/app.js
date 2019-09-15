@@ -59,7 +59,7 @@ app.post('/code', (req, res) => {
   .then(({ dataValues: { id } }) => {
     UsersCodes.create({user_id, code_id: id})
       .then(_ => {
-        res.send({ id });
+        res.status(200).send({ code_id: id });
       }).catch(err => parseError(err, res));
   }).catch(err => parseError(err, res));
 });
