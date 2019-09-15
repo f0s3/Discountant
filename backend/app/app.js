@@ -52,17 +52,6 @@ app.post('/login', (req, res) => {
   });
 });
 
-app.get('/code/:id', (req, res) => {
-  Code.findByPk(req.params.id)
-    .then(value => {
-      console.log(value.dataValues.id);
-      res.status(200).send({codeId: value.dataValues});
-    }).catch(err => {
-      console.log(err);
-      res.sendStatus(500);
-    })
-})
-
 app.post('/code', (req, res) => {
   const {name, image} = req.body;
   const {user_id} = req.headers;
